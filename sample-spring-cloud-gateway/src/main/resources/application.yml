@@ -1,12 +1,12 @@
 spring:
+  application:
+    name: cloud-gateway
   cloud:
     gateway:
       routes:
         - id: path-route-base
-          uri: https://example.org
+          uri: http://localhost:8000/persons
           predicates:
-            - name: Path
-              args:
-                - /api/{segment}
+            - Path=/persons/**
           filters:
-            - AddResponseHeader=X-Gateway, spring-gateway-{segment}
+            - AddResponseHeader=X-Gateway, cloud-gateway

@@ -1,4 +1,2 @@
 ### sample api
-GET localhost:8080/api/sample
-
-
+GET http://localhost:8080/persons
