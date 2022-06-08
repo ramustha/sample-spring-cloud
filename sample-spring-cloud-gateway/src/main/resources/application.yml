@@ -17,7 +17,7 @@ spring:
             - name: CircuitBreaker
               args:
                 name: PersonService
-                fallbackUri: forward:/default-fallback
+                fallbackUri: forward:/fallback
             - name: Retry
               args:
                 retries: 3
@@ -25,6 +25,14 @@ spring:
                 backoff:
                   firstBackoff: 50ms
                   maxBackoff: 500ms
+        - id: person-fallback
+          uri: http://localhost:8001
+          predicates:
+            - Path=/fallback
+          filters:
+            - name: FallbackHeaders
+              args:
+                executionExceptionTypeHeaderName: X-Fallback
 
 
 
