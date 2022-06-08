@@ -3,6 +3,10 @@ spring:
     name: cloud-gateway
   cloud:
     gateway:
+      httpclient:
+        wiretap: true
+      httpserver:
+        wiretap: true
       routes:
         - id: path-route-base
           uri: http://localhost:8000/persons
@@ -10,3 +14,26 @@ spring:
             - Path=/persons/**
           filters:
             - AddResponseHeader=X-Gateway, cloud-gateway
+            - name: CircuitBreaker
+              args:
+                name: PersonService
+                fallbackUri: forward:/default-fallback
+            - name: Retry
+              args:
+                retries: 3
+                method: GET
+                backoff:
+                  firstBackoff: 50ms
+                  maxBackoff: 500ms
+
+
+
+logging:
+  level:
+    reactor:
+      netty: INFO
+    org:
+      springframework:
+        cloud:
+          gateway: TRACE
+
