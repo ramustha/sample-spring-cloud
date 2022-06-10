@@ -8,12 +8,14 @@ spring:
       httpserver:
         wiretap: true
       routes:
-        - id: path-route-base
+        - id: person-route
           uri: http://localhost:8000/persons
           predicates:
             - Path=/persons/**
           filters:
             - AddResponseHeader=X-Gateway, cloud-gateway
+            - MapRequestHeader=X-Request-Sample, X-Override-Sample
+            - PrefixPath=/api
             - name: CircuitBreaker
               args:
                 name: PersonService

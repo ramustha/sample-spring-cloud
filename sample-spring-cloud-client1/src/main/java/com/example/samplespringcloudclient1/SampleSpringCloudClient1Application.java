@@ -28,7 +28,7 @@ class Person {
 
 @RestController
 class PersonResources {
-	@GetMapping(value = "/persons", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/api/persons", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Flux<Person> getPersons() {
 
 		return Flux.just(
