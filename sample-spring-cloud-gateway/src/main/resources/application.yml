@@ -1,3 +1,18 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+logging:
+  level:
+    reactor:
+      netty: INFO
+    org:
+      springframework:
+        cloud:
+          gateway: TRACE
+
 spring:
   application:
     name: cloud-gateway
@@ -16,6 +31,7 @@ spring:
             - AddResponseHeader=X-Gateway, cloud-gateway
             - MapRequestHeader=X-Request-Sample, X-Override-Sample
             - PrefixPath=/api
+            - PreserveHostHeader
             - name: CircuitBreaker
               args:
                 name: PersonService
@@ -35,15 +51,9 @@ spring:
             - name: FallbackHeaders
               args:
                 executionExceptionTypeHeaderName: X-Fallback
-
-
-
-logging:
-  level:
-    reactor:
-      netty: INFO
-    org:
-      springframework:
-        cloud:
-          gateway: TRACE
-
+        - id: redirect_route
+          uri: http://localhost:8000/redirect
+          predicates:
+            - Path=/redirect/**
+          filters:
+            - RedirectTo=302, https://example.com/
