@@ -10,14 +10,14 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
     </properties>
 
     <modules>
-        <module>sample-spring-cloud-client1</module>
-        <module>sample-spring-cloud-client2</module>
-        <module>sample-spring-cloud-gateway</module>
+        <module>fashion-service</module>
+        <module>cart-service</module>
+        <module>gateway-service</module>
     </modules>
 
 </project>
