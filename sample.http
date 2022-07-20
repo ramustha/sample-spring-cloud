@@ -1,7 +1,35 @@
-### person api
-GET http://localhost:8080/persons
-X-Request-Sample: from-client
+### add cart
+POST http://localhost:8001/carts
+Content-Type: application/json
 
-### person api
-GET http://localhost:8080/redirect
-X-Request-Sample: from-client
+{
+  "id": "cartId",
+  "customer": {
+    "id": "customerId",
+    "name": "customerName"
+  },
+  "products": [
+    {
+      "id": "productId1",
+      "name": "productName1",
+      "amount": 2,
+      "price": 10000,
+      "totalPrice": 20000
+    },
+    {
+      "id": "productId2",
+      "name": "productName2",
+      "amount": 1,
+      "price": 30000,
+      "totalPrice": 30000
+    }
+  ]
+}
+
+### get cart
+GET http://localhost:8001/carts/cartId
+Content-Type: application/json
+
+### remove cart
+DELETE http://localhost:8001/carts/cartId
+Content-Type: application/json
