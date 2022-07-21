@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  spring-cloud-mongodb:
+    image: mongo
+    container_name: 'spring-cloud-mongodb'
+    environment:
+      - MONGO_INITDB_DATABASE=spring-cloud
+      - MONGO_INITDB_ROOT_USERNAME=spring-cloud
+      - MONGO_INITDB_ROOT_PASSWORD=spring-cloud
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      - ./mongo-volume:/data/db
