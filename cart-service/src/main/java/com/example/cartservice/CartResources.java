@@ -19,23 +19,20 @@ class CartResources {
     this.cartHandler = cartHandler;
   }
 
-  @GetMapping(value = "/carts/{cartId}",
-      consumes = MediaType.APPLICATION_JSON_VALUE,
-      produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(value = "/carts/{cartId}", consumes = MediaType.APPLICATION_JSON_VALUE,
+              produces = MediaType.APPLICATION_JSON_VALUE)
   public Mono<Cart> getCart(@PathVariable String cartId) {
     return cartHandler.getCustomerCart(cartId);
   }
 
-  @PostMapping(value = "/carts",
-      consumes = MediaType.APPLICATION_JSON_VALUE,
-      produces = MediaType.APPLICATION_JSON_VALUE)
+  @PostMapping(value = "/carts", consumes = MediaType.APPLICATION_JSON_VALUE,
+               produces = MediaType.APPLICATION_JSON_VALUE)
   public Mono<Cart> addCart(@RequestBody Cart cart) {
     return cartHandler.addCustomerCart(cart);
   }
 
-  @DeleteMapping(value = "/carts/{cartId}",
-      consumes = MediaType.APPLICATION_JSON_VALUE,
-      produces = MediaType.APPLICATION_JSON_VALUE)
+  @DeleteMapping(value = "/carts/{cartId}", consumes = MediaType.APPLICATION_JSON_VALUE,
+                 produces = MediaType.APPLICATION_JSON_VALUE)
   public Mono<Void> removeCart(@PathVariable String cartId) {
     return cartHandler.removeCustomerCart(cartId);
   }

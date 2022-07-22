@@ -33,3 +33,7 @@ Content-Type: application/json
 ### remove cart
 DELETE http://localhost:8001/carts/cartId
 Content-Type: application/json
+
+### get product
+GET http://localhost:8002/products
+Content-Type: application/json

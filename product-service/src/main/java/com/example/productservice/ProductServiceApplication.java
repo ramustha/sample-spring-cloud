@@ -1,14 +1,14 @@
-package com.example.samplespringcloudclient1;
+package com.example.productservice;
 
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SampleSpringCloudGadgetServiceApplication {
+public class ProductServiceApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(SampleSpringCloudGadgetServiceApplication.class, args);
+    SpringApplication.run(ProductServiceApplication.class, args);
   }
 
 }

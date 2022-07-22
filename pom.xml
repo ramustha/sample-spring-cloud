@@ -16,7 +16,7 @@
 
     <modules>
         <module>fashion-service</module>
-        <module>gadget-service</module>
+        <module>product-service</module>
         <module>cart-service</module>
         <module>gateway-service</module>
     </modules>
