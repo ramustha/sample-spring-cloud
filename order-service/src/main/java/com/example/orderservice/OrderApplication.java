@@ -1,14 +1,14 @@
-package com.example.samplespringcloudclient1;
+package com.example.orderservice;
 
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SampleSpringCloudClient1Application {
+public class OrderApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(SampleSpringCloudClient1Application.class, args);
+    SpringApplication.run(OrderApplication.class, args);
   }
 
 }

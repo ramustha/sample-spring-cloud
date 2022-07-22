@@ -15,7 +15,7 @@
     </properties>
 
     <modules>
-        <module>fashion-service</module>
+        <module>order-service</module>
         <module>product-service</module>
         <module>cart-service</module>
         <module>gateway-service</module>
