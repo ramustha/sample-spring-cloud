@@ -37,3 +37,7 @@ Content-Type: application/json
 ### get product
 GET http://localhost:8002/products
 Content-Type: application/json
+
+### get product via gateway
+GET http://localhost:9000/products
+Content-Type: application/json

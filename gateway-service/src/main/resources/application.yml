@@ -16,9 +16,24 @@ management:
 spring:
   application:
     name: gateway-service
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: gateway-service
+            client-secret: keycloak-secret
+            scope: openid
+        provider:
+          keycloak:
+            issuer-uri: ${KEYCLOAK_URL:http://localhost:8080}/auth/realms/PolarBookshop
+  session:
+    store-type: redis
   cloud:
     gateway:
       default-filters:
+        - SaveSession
+        - TokenRelay
         - name: RequestRateLimiter
           args:
             redis-rate-limiter:

@@ -258,7 +258,7 @@
         "containerId" : "49a4e7fe-3b7f-430e-a8e4-3a95c0c76e40",
         "attributes" : { }
       } ],
-      "edge-service" : [ ],
+      "gateway-service" : [ ],
       "security-admin-console" : [ ],
       "admin-cli" : [ ],
       "account-console" : [ ],
@@ -550,12 +550,12 @@
     "optionalClientScopes" : [ "address", "phone", "offline_access", "microprofile-jwt" ]
   }, {
     "id" : "d374caf6-d082-40bc-a9d6-19190f3b82d8",
-    "clientId" : "edge-service",
+    "clientId" : "gateway-service",
     "surrogateAuthRequired" : false,
     "enabled" : true,
     "alwaysDisplayInConsole" : false,
     "clientAuthenticatorType" : "client-secret",
-    "secret" : "polar-keycloak-secret",
+    "secret" : "keycloak-secret",
     "redirectUris" : [ "http://localhost:9000/login/oauth2/code/*", "http://localhost:9000" ],
     "webOrigins" : [ "http://localhost:9000" ],
     "notBefore" : 0,

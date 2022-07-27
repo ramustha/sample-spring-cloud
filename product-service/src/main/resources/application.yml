@@ -16,6 +16,11 @@ management:
 spring:
   application:
     name: product-service
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${KEYCLOAK_URL:http://localhost:8080}/auth/realms/PolarBookshop
   data:
     mongodb:
       host: localhost

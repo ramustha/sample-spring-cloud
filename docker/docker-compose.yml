@@ -5,6 +5,8 @@ services:
     container_name: gateway-service
     depends_on:
       - spring-cloud-fluent-bit
+      - spring-cloud-keycloak
+      - spring-cloud-redis
     ports:
       - "9000:9000"
     environment:
@@ -13,6 +15,7 @@ services:
       - OTEL_SERVICE_NAME=gateway-service
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://spring-cloud-tempo:4317
       - SPRING_REDIS_HOST=spring-cloud-redis
+      - KEYCLOAK_URL=http://spring-cloud-keycloak:8080
     logging:
       driver: fluentd
       options:
@@ -23,6 +26,7 @@ services:
     depends_on:
       - spring-cloud-fluent-bit
       - spring-cloud-mongodb
+      - spring-cloud-keycloak
     ports:
       - "8002:8002"
     environment:
@@ -34,15 +38,17 @@ services:
       - SPRING_DATA_MONGODB_USERNAME=spring-cloud
       - SPRING_DATA_MONGODB_PASSWORD=spring-cloud
       - SPRING_DATA_MONGODB_DATABASE=spring-cloud
+      - KEYCLOAK_URL=http://spring-cloud-keycloak:8080
     logging:
       driver: fluentd
       options:
         fluentd-address: 127.0.0.1:24224
 
+# backend
 
   spring-cloud-mongodb:
     image: mongo
-    container_name: 'spring-cloud-mongodb'
+    container_name: spring-cloud-mongodb
     environment:
       - MONGO_INITDB_DATABASE=spring-cloud
       - MONGO_INITDB_ROOT_USERNAME=spring-cloud
@@ -54,11 +60,22 @@ services:
       - ./mongo-volume:/data/db
   spring-cloud-redis:
     image: redis:7
-    container_name: 'spring-cloud-redis'
+    container_name: spring-cloud-redis
     ports:
       - "6379:6379"
+  spring-cloud-keycloak:
+    image: quay.io/keycloak/keycloak:17.0.1-legacy
+    container_name: spring-cloud-keycloak
+    volumes:
+      - ./platform/keycloak:/opt/jboss/keycloak/imports
+    environment:
+      - KEYCLOAK_USER=user
+      - KEYCLOAK_PASSWORD=password
+      - KEYCLOAK_IMPORT=/opt/jboss/keycloak/imports/realm-export.json
+    ports:
+      - "8080:8080"
 
-# platform
+# observability
 
   spring-cloud-grafana:
     image: grafana/grafana:8.4.4
