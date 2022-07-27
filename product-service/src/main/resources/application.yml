@@ -1,0 +1,27 @@
+server:
+  port: 8002
+
+logging:
+  pattern:
+    level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"
+  level:
+    org.springframework.web.servlet.DispatcherServlet: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+spring:
+  application:
+    name: product-service
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      username: spring-cloud
+      password: spring-cloud
+      database: spring-cloud
+
+

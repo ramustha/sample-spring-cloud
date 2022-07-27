@@ -1,40 +1,40 @@
+server:
+  port: 9000
+
+logging:
+  pattern:
+    level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"
+  level:
+    org.springframework.web.servlet.DispatcherServlet: DEBUG
+
 management:
   endpoints:
     web:
       exposure:
         include: "*"
 
-logging:
-  level:
-    reactor:
-      netty: INFO
-    org:
-      springframework:
-        cloud:
-          gateway: TRACE
-
 spring:
   application:
-    name: cloud-gateway
+    name: gateway-service
   cloud:
     gateway:
-      httpclient:
-        wiretap: true
-      httpserver:
-        wiretap: true
+      default-filters:
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter:
+              replenishRate: 10
+              burstCapacity: 20
+              requestedTokens: 1
       routes:
-        - id: person-route
-          uri: http://localhost:8000/persons
+        - id: product-route
+          uri: ${PRODUCT_SERVICE_URL:http://product-service:8002}
           predicates:
-            - Path=/persons/**
+            - Path=/products/**
           filters:
             - AddResponseHeader=X-Gateway, cloud-gateway
-            - MapRequestHeader=X-Request-Sample, X-Override-Sample
-            - PrefixPath=/api
-            - PreserveHostHeader
             - name: CircuitBreaker
               args:
-                name: PersonService
+                name: productService
                 fallbackUri: forward:/fallback
             - name: Retry
               args:
@@ -42,18 +42,17 @@ spring:
                 method: GET
                 backoff:
                   firstBackoff: 50ms
-                  maxBackoff: 500ms
-        - id: person-fallback
-          uri: http://localhost:8001
-          predicates:
-            - Path=/fallback
-          filters:
-            - name: FallbackHeaders
-              args:
-                executionExceptionTypeHeaderName: X-Fallback
-        - id: redirect_route
-          uri: http://localhost:8000/redirect
-          predicates:
-            - Path=/redirect/**
-          filters:
-            - RedirectTo=302, https://example.com/
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      productService:
+        slidingWindowSize: 10
+        permittedNumberOfCallsInHalfOpenState: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10000
+        registerHealthIndicator: true
+  timelimiter:
+    instances:
+      productService:
+        timeoutDuration: 3s
