@@ -15,7 +15,7 @@ services:
       - OTEL_SERVICE_NAME=gateway-service
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://spring-cloud-tempo:4317
       - SPRING_REDIS_HOST=spring-cloud-redis
-      - KEYCLOAK_URL=http://spring-cloud-keycloak:8080
+      - KEYCLOAK_URL=http://host.docker.internal:8080
     logging:
       driver: fluentd
       options:
@@ -38,7 +38,7 @@ services:
       - SPRING_DATA_MONGODB_USERNAME=spring-cloud
       - SPRING_DATA_MONGODB_PASSWORD=spring-cloud
       - SPRING_DATA_MONGODB_DATABASE=spring-cloud
-      - KEYCLOAK_URL=http://spring-cloud-keycloak:8080
+      - KEYCLOAK_URL=http://host.docker.internal:8080
     logging:
       driver: fluentd
       options:
@@ -56,8 +56,7 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
-      - ./mongo-volume:/data/db
+      - ./platform/mongodb/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
   spring-cloud-redis:
     image: redis:7
     container_name: spring-cloud-redis
