@@ -102,10 +102,6 @@ export class NavPage extends TwLitElement {
                         this.heroActive =
                           !this.heroActive;
                       }}"
-                      @focusout="${() => {
-                        this.heroActive =
-                          !this.heroActive;
-                      }}"
                       class="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                       id="user-menu-button"
                       aria-expanded="false"
@@ -144,7 +140,7 @@ export class NavPage extends TwLitElement {
                     <!-- Active: "bg-gray-100", Not Active: "" -->
                     <a
                       href="#"
-                      class="block px-4 py-2 text-sm text-gray-700"
+                      class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       role="menuitem"
                       tabindex="-1"
                       id="user-menu-item-0"
@@ -153,7 +149,7 @@ export class NavPage extends TwLitElement {
 
                     <a
                       href="#"
-                      class="block px-4 py-2 text-sm text-gray-700"
+                      class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       role="menuitem"
                       tabindex="-1"
                       id="user-menu-item-1"
@@ -162,7 +158,7 @@ export class NavPage extends TwLitElement {
 
                     <a
                       href="#"
-                      class="block px-4 py-2 text-sm text-gray-700"
+                      class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       role="menuitem"
                       tabindex="-1"
                       id="user-menu-item-2"
