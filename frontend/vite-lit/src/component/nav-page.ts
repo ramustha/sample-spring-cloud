@@ -1,13 +1,13 @@
 import { html } from 'lit';
 import {
   customElement,
-  property,
+  state,
 } from 'lit/decorators.js';
 import { TwLitElement } from '../common/TwLitElement';
 
 @customElement('nav-page')
 export class NavPage extends TwLitElement {
-  @property() heroActive = false;
+  @state() heroActive = false;
 
   render() {
     return html`
@@ -188,7 +188,7 @@ export class NavPage extends TwLitElement {
                   Menu open: "hidden", Menu closed: "block"
                 -->
                 <svg
-                  class="${this.heroActive
+                  class="${!this.heroActive
                     ? 'block'
                     : 'hidden'} h-6 w-6"
                   xmlns="http://www.w3.org/2000/svg"
@@ -210,7 +210,7 @@ export class NavPage extends TwLitElement {
                   Menu open: "block", Menu closed: "hidden"
                 -->
                 <svg
-                  class="${this.heroActive
+                  class="${!this.heroActive
                     ? 'hidden'
                     : 'block'} h-6 w-6"
                   xmlns="http://www.w3.org/2000/svg"
@@ -233,7 +233,7 @@ export class NavPage extends TwLitElement {
 
         <!-- Mobile menu, show/hide based on menu state. -->
         <div
-          class="${this.heroActive
+          class="${!this.heroActive
             ? 'hidden'
             : 'block'} md:hidden"
           id="mobile-menu"

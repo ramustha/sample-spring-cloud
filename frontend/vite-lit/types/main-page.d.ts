@@ -1,10 +1,11 @@
 import { TwLitElement } from './common/TwLitElement';
-import './component/nav-page';
 import './component/content-page';
+import './component/nav-page';
 export declare class MainPage extends TwLitElement {
-    docsHint: string;
-    count: number;
+    private _apiTask;
+    private duration;
     render(): import("lit-html").TemplateResult<1>;
+    private onComplete;
 }
 declare global {
     interface HTMLElementTagNameMap {
