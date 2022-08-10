@@ -4,7 +4,10 @@ import {
   fadeOut,
 } from '@lit-labs/motion';
 import { html } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import {
+  customElement,
+  property,
+} from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
 import { TwLitElement } from './common/TwLitElement';
 import './component/content-page';
@@ -13,13 +16,24 @@ import { getTodosAPI } from './service/todo-service';
 
 @customElement('main-page')
 export class MainPage extends TwLitElement {
+  @property({ type: Boolean }) profileActive = false;
+
   private _apiTask = getTodosAPI(this, 50);
   private duration = 500;
 
   render() {
     return html`
       <div class="min-h-full">
-        <nav-page></nav-page>
+        <nav-page
+          .profileActive="${this.profileActive}"
+          @focusout="${() =>
+            (this.profileActive =
+              !this.profileActive)}"
+          @showprofile="${(e: any) => {
+            this.profileActive =
+              e.detail.profileActive;
+          }}"
+        ></nav-page>
         <content-page>
           <!-- Replace with your content -->
           <div class="px-2 py-3 sm:px-0">

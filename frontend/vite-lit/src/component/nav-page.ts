@@ -1,13 +1,13 @@
 import { html } from 'lit';
 import {
   customElement,
-  state,
+  property,
 } from 'lit/decorators.js';
 import { TwLitElement } from '../common/TwLitElement';
 
 @customElement('nav-page')
 export class NavPage extends TwLitElement {
-  @state() heroActive = false;
+  @property({ type: Boolean }) profileActive = false;
 
   render() {
     return html`
@@ -99,8 +99,7 @@ export class NavPage extends TwLitElement {
                     <button
                       type="button"
                       @click="${() => {
-                        this.heroActive =
-                          !this.heroActive;
+                        this.onProfileClicked();
                       }}"
                       class="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                       id="user-menu-button"
@@ -129,7 +128,7 @@ export class NavPage extends TwLitElement {
                       To: "transform opacity-0 scale-95"
                   -->
                   <div
-                    class="${this.heroActive
+                    class="${this.profileActive
                       ? 'block'
                       : 'hidden'} origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                     role="menu"
@@ -173,7 +172,7 @@ export class NavPage extends TwLitElement {
               <button
                 type="button"
                 @click="${() => {
-                  this.heroActive = !this.heroActive;
+                  this.onProfileClicked();
                 }}"
                 class="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                 aria-controls="mobile-menu"
@@ -188,7 +187,7 @@ export class NavPage extends TwLitElement {
                   Menu open: "hidden", Menu closed: "block"
                 -->
                 <svg
-                  class="${!this.heroActive
+                  class="${!this.profileActive
                     ? 'block'
                     : 'hidden'} h-6 w-6"
                   xmlns="http://www.w3.org/2000/svg"
@@ -210,7 +209,7 @@ export class NavPage extends TwLitElement {
                   Menu open: "block", Menu closed: "hidden"
                 -->
                 <svg
-                  class="${!this.heroActive
+                  class="${!this.profileActive
                     ? 'hidden'
                     : 'block'} h-6 w-6"
                   xmlns="http://www.w3.org/2000/svg"
@@ -233,7 +232,7 @@ export class NavPage extends TwLitElement {
 
         <!-- Mobile menu, show/hide based on menu state. -->
         <div
-          class="${!this.heroActive
+          class="${!this.profileActive
             ? 'hidden'
             : 'block'} md:hidden"
           id="mobile-menu"
@@ -344,6 +343,19 @@ export class NavPage extends TwLitElement {
         </div>
       </nav>
     `;
+  }
+
+  private onProfileClicked() {
+    this.profileActive = !this.profileActive;
+
+    const options = {
+      detail: {
+        profileActive: this.profileActive,
+      },
+    };
+    this.dispatchEvent(
+      new CustomEvent('showprofile', options)
+    );
   }
 }
 declare global {
