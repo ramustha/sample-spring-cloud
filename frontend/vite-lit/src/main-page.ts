@@ -26,9 +26,12 @@ export class MainPage extends TwLitElement {
       <div class="min-h-full">
         <nav-page
           .profileActive="${this.profileActive}"
-          @focusout="${() =>
-            (this.profileActive =
-              !this.profileActive)}"
+          @focusout="${() => {
+            if (this.profileActive) {
+              this.profileActive =
+                  !this.profileActive; 
+            }
+          }}"
           @showprofile="${(e: any) => {
             this.profileActive =
               e.detail.profileActive;
